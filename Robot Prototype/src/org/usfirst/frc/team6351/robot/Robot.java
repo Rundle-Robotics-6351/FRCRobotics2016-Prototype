@@ -30,7 +30,7 @@ public class Robot extends IterativeRobot {
     //Operators
     Joystick driver1 = new Joystick(0);
     
-    public static final double SPEED_MULTIPLIER = 0.3;
+    public static final double SPEED_MULTIPLIER = 0.5;
     
     /**
      * This function is run when the robot is first started up and should be
