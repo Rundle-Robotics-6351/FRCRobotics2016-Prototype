@@ -3,6 +3,7 @@ package org.usfirst.frc.team6351.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -20,14 +21,17 @@ public class Robot extends IterativeRobot {
     final String customAuto = "My Auto";
     String autoSelected;
     SendableChooser chooser;
-    //left
-    Victor motor1 = new Victor(1);
-    Victor motor2 = new Victor(2);
-    //right
-    Victor motor3 = new Victor(3);
-    Victor motor4 = new Victor(4);
-    
+    //Left Motors
+    Victor left1 = new Victor(1);
+    Victor left2 = new Victor(2);
+    //Right Motors
+    Victor right3 = new Victor(3);
+    Victor right4 = new Victor(4);
+    //Operators
     Joystick driver1 = new Joystick(0);
+    
+    public static final double SPEED_MULTIPLIER = 0.3;
+    
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -37,9 +41,7 @@ public class Robot extends IterativeRobot {
         chooser.addDefault("Default Auto", defaultAuto);
         chooser.addObject("My Auto", customAuto);
         SmartDashboard.putData("Auto choices", chooser);
-        
-         
-        
+
     }
     
 	/**
@@ -75,15 +77,22 @@ public class Robot extends IterativeRobot {
     /**
      * This function is called periodically during operator control
      */ 
-    public void teleopPeriodic() {
-        motor1.set(-1*driver1.getRawAxis(1));
-        motor2.set(-1*driver1.getRawAxis(1));
-        
-        motor3.set(driver1.getRawAxis(3));
-        motor4.set(driver1.getRawAxis(3));
-    }
     
-    /**
+//    public void OperatorControl() {
+//    	while (isOperatorControl() && isEnabled()) {
+//    		myDrive.arcadeDrive(driver1);
+//    		Timer.delay(0.01);
+//    	}
+//    }
+    public void teleopPeriodic() {
+    	left1.set(SPEED_MULTIPLIER*-1*driver1.getRawAxis(1));
+    	left2.set(SPEED_MULTIPLIER*-1*driver1.getRawAxis(1));
+    	right3.set(SPEED_MULTIPLIER*driver1.getRawAxis(3));
+    	right4.set(SPEED_MULTIPLIER*driver1.getRawAxis(3));
+     
+	}
+
+	/*
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
